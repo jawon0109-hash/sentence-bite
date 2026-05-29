@@ -739,9 +739,14 @@
         .replace(/\s+/g, " ")
         .trim();
       if (!cleaned) return [];
-      const matches = cleaned.match(/[^.!?]+(?:[.!?]+["')\]]*|$)/g) || [];
+      const protectedText = cleaned
+        .replace(/\b(No|Mr|Mrs|Ms|Dr|Prof|St|Jr|Sr)\./g, "$1<dot>")
+        .replace(/\be\.g\./gi, "e<dot>g<dot>")
+        .replace(/\bi\.e\./gi, "i<dot>e<dot>")
+        .replace(/\betc\./gi, "etc<dot>");
+      const matches = protectedText.match(/[^.!?]+(?:[.!?]+["')\]]*|$)/g) || [];
       return matches
-        .map(sentence => sentence.trim())
+        .map(sentence => sentence.replace(/<dot>/g, ".").trim())
         .filter(sentence => sentence.length > 8 && /[a-zA-Z]/.test(sentence));
     }
 
@@ -990,6 +995,7 @@
       return String(text)
         .replace(/\bNo\.\s*(?=\d)/g, "Number ")
         .replace(/\bNo\.\s+of\b/gi, "Number of")
+        .replace(/\bNo\.(?=\s|$)/g, "Number")
         .replace(/\bMr\.\s*/g, "Mister ")
         .replace(/\bMrs\.\s*/g, "Missus ")
         .replace(/\bMs\.\s*/g, "Ms ")

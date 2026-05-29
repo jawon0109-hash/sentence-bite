@@ -682,6 +682,7 @@
 
     let state = loadState();
     let voices = [];
+    const AI_ENDPOINT = "";
 
     function defaultState() {
       const today = new Date().toISOString().slice(0, 10);
@@ -772,18 +773,24 @@
 
     /* ── AI helpers ── */
     async function callClaude(userPrompt) {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
+      if (!AI_ENDPOINT) {
+        throw new Error("AI_SETUP_REQUIRED");
+      }
+
+      const res = await fetch(AI_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 1000,
-          messages: [{ role: "user", content: userPrompt }]
+          prompt: userPrompt
         })
       });
-      if (!res.ok) throw new Error("API 요청 실패");
+      if (!res.ok) throw new Error("API_REQUEST_FAILED");
       const data = await res.json();
-      return data.content.filter(b => b.type === "text").map(b => b.text).join("");
+      return data.text || data.result || "";
+    }
+
+    function aiUnavailableMessage() {
+      return "AI 자동 생성은 배포용 서버 연결이 필요합니다. 지금은 직접 뜻과 예문을 적어주세요.";
     }
 
     async function aiTranslateSentence() {
@@ -792,7 +799,7 @@
       els.aiMeaningBtn.classList.add("loading");
       els.aiMeaningBtn.disabled = true;
       els.meaningInput.classList.add("ai-loading");
-      els.meaningInput.value = "";
+      const previousMeaning = els.meaningInput.value;
       try {
         const result = await callClaude(
           `다음 영어 문장을 자연스러운 한국어로 번역해줘. 번역문만 출력하고 다른 설명은 넣지 마.\n\n"${sentence}"`
@@ -801,7 +808,7 @@
         state.meanings[currentIndex()] = els.meaningInput.value;
         saveState();
       } catch {
-        els.meaningInput.value = "번역 중 오류가 발생했습니다. 다시 시도해주세요.";
+        els.meaningInput.value = previousMeaning || aiUnavailableMessage();
       } finally {
         els.meaningInput.classList.remove("ai-loading");
         els.aiMeaningBtn.classList.remove("loading");
@@ -812,7 +819,7 @@
     async function aiVocabNote(sentence, term, textarea, btn) {
       btn.disabled = true;
       textarea.classList.add("ai-loading");
-      textarea.value = "";
+      const previousNote = textarea.value;
       try {
         const result = await callClaude(
           `영어 학습 앱용 단어 카드를 만들어줘. 아래 문장에서 쓰인 단어/표현의 한국어 뜻과 짧은 영어 예문 1개를 작성해.
@@ -825,7 +832,7 @@
         );
         textarea.value = result.trim();
       } catch {
-        textarea.value = "오류가 발생했습니다.";
+        textarea.value = previousNote || aiUnavailableMessage();
       } finally {
         textarea.classList.remove("ai-loading");
         btn.disabled = false;

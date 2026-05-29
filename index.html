@@ -945,7 +945,7 @@
           const term = termInput.value.trim();
           if (!term || !("speechSynthesis" in window)) return;
           window.speechSynthesis.cancel();
-          const utt = new SpeechSynthesisUtterance(term);
+          const utt = new SpeechSynthesisUtterance(normalizeForSpeech(term));
           utt.lang = "en-US";
           utt.rate = Math.min(Number(state.rate) || 0.9, 0.85);
           const voice = getEnglishVoice();
@@ -986,11 +986,24 @@
       return all.find(v => v.localService) || all[0] || null;
     }
 
+    function normalizeForSpeech(text) {
+      return String(text)
+        .replace(/\bNo\.\s*(?=\d)/g, "Number ")
+        .replace(/\bNo\.\s+of\b/gi, "Number of")
+        .replace(/\bMr\.\s*/g, "Mister ")
+        .replace(/\bMrs\.\s*/g, "Missus ")
+        .replace(/\bMs\.\s*/g, "Ms ")
+        .replace(/\bDr\.\s*/g, "Doctor ")
+        .replace(/\be\.g\./gi, "for example")
+        .replace(/\bi\.e\./gi, "that is")
+        .replace(/\betc\./gi, "et cetera");
+    }
+
     function speakCurrent() {
       const sentence = state.sentences[currentIndex()];
       if (!sentence || !("speechSynthesis" in window)) return;
       window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(sentence);
+      const utterance = new SpeechSynthesisUtterance(normalizeForSpeech(sentence));
       utterance.lang = "en-US";
       utterance.rate = Number(state.rate) || 0.9;
       const voice = getEnglishVoice();

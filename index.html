@@ -994,8 +994,10 @@
     function normalizeForSpeech(text) {
       return String(text)
         .replace(/\bNo\.\s*(?=\d)/g, "Number ")
+        .replace(/\bNo\s+(?=\d)/g, "Number ")
         .replace(/\bNo\.\s+of\b/gi, "Number of")
         .replace(/\bNo\.(?=\s|$)/g, "Number")
+        .replace(/^No$/i, "Number")
         .replace(/\bMr\.\s*/g, "Mister ")
         .replace(/\bMrs\.\s*/g, "Missus ")
         .replace(/\bMs\.\s*/g, "Ms ")

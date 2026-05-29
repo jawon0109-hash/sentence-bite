@@ -1,0 +1,1096 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>하루 한 문장 영어</title>
+  <link rel="icon" href="assets/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="assets/site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #1e1d2e;
+      --muted: #8b8aa8;
+      --line: #e4e2f0;
+      --paper: #f7f6fb;
+      --panel: #ffffff;
+      --soft: #f0eefb;
+      --soft2: #eaeaf8;
+      --accent: #7c6fc4;
+      --accent-deep: #5548a0;
+      --accent-light: #c7c2ee;
+      --lavender: #e8e5f8;
+      --periwinkle: #d0ccf2;
+      --sky: #dce8f8;
+      --sky-deep: #5d8fc4;
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+      --font-ko: 'Gowun Batang', serif;
+      --radius: 22px;
+      --radius-sm: 14px;
+      --shadow-card: 0 4px 36px rgba(80, 70, 160, .09);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--paper);
+      color: var(--ink);
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(ellipse 70% 55% at 10% 5%, rgba(140, 120, 220, .10) 0%, transparent 65%),
+        radial-gradient(ellipse 55% 65% at 92% 95%, rgba(100, 150, 220, .09) 0%, transparent 65%),
+        radial-gradient(ellipse 45% 45% at 55% 45%, rgba(180, 170, 240, .05) 0%, transparent 70%);
+    }
+
+    button, input, textarea, select { font: inherit; max-width: 100%; }
+
+    /* ── Buttons ── */
+    button {
+      border: 0;
+      cursor: pointer;
+      border-radius: 999px;
+      min-height: 38px;
+      padding: 0 22px;
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: .875rem;
+      letter-spacing: .01em;
+      transition: all .2s ease;
+    }
+    button:not(.secondary):not(.ghost):not(.warn) {
+      background: var(--accent);
+      color: #fff;
+    }
+    button:not(.secondary):not(.ghost):not(.warn):hover {
+      background: var(--accent-deep);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(100, 80, 200, .25);
+    }
+    button.secondary {
+      color: var(--ink);
+      background: var(--soft);
+      border: 1.5px solid var(--line);
+    }
+    button.secondary:hover {
+      background: var(--lavender);
+      border-color: var(--periwinkle);
+    }
+    button.ghost {
+      color: var(--accent-deep);
+      background: transparent;
+      border: 1.5px solid var(--periwinkle);
+    }
+    button.ghost:hover {
+      background: var(--lavender);
+    }
+    button.warn {
+      background: transparent;
+      color: #9060a0;
+      border: 1.5px solid #d8c0e8;
+    }
+    button.warn:hover { background: #f5eefa; }
+    button:disabled { opacity: .35; cursor: not-allowed; transform: none !important; }
+
+    /* ── AI button ── */
+    button.ai-btn {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--sky-deep) 100%);
+      color: #fff;
+      border: 0;
+      gap: 6px;
+      display: inline-flex;
+      align-items: center;
+    }
+    button.ai-btn:hover {
+      opacity: .9;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(100, 80, 200, .22);
+    }
+    button.ai-btn.loading {
+      opacity: .7;
+      pointer-events: none;
+    }
+    .ai-sparkle { font-size: .9em; }
+
+    /* ── Layout ── */
+    .app {
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 44px 24px 72px;
+      text-align: center;
+      animation: pageIn .6s ease both;
+    }
+    @keyframes pageIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Header ── */
+    header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 0 0 52px;
+    }
+    .header-text h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.6rem, 5vw, 4.4rem);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.08;
+      color: var(--ink);
+      letter-spacing: -.01em;
+    }
+    .header-text h1 span { color: var(--accent); }
+    .subtitle {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: .88rem;
+      max-width: 480px;
+      line-height: 2.1;
+      font-family: var(--font-ko);
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border: 1.5px solid var(--line);
+      background: rgba(255,255,255,.7);
+      backdrop-filter: blur(12px);
+      border-radius: 999px;
+      color: var(--muted);
+      white-space: nowrap;
+      font-size: .78rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #7ab87a;
+      box-shadow: 0 0 0 3px rgba(120, 180, 120, .2);
+    }
+    .dot.paused {
+      background: var(--accent);
+      box-shadow: 0 0 0 3px rgba(140, 110, 220, .2);
+    }
+
+    /* ── Main grid ── */
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 18px;
+      align-items: start;
+      text-align: left;
+      min-width: 0;
+    }
+
+    /* ── Cards ── */
+    section, aside {
+      background: rgba(255,255,255,.75);
+      backdrop-filter: blur(18px);
+      border: 1.5px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-card);
+      animation: cardIn .65s ease both;
+      min-width: 0;
+    }
+    section:nth-child(2) { animation-delay: .06s; }
+    aside { animation-delay: .12s; }
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Reader ── */
+    .reader { overflow: hidden; min-width: 0; }
+    .reader-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      padding: 20px 28px;
+      border-bottom: 1.5px solid var(--line);
+      min-width: 0;
+    }
+    .reader-top h2, .panel h2, .side-block h2 {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: .75rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0;
+    }
+    .progress {
+      color: var(--muted);
+      font-size: .78rem;
+      text-align: right;
+      letter-spacing: .02em;
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+    .sentence-wrap {
+      padding: 44px 36px 32px;
+      min-height: 240px;
+      display: grid;
+      align-content: center;
+      gap: 28px;
+      text-align: center;
+    }
+    .sentence {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3vw, 2.9rem);
+      line-height: 1.35;
+      font-weight: 400;
+      color: var(--ink);
+      overflow-wrap: anywhere;
+      letter-spacing: -.01em;
+    }
+    .field { display: grid; gap: 8px; min-width: 0; }
+    label {
+      color: var(--muted);
+      font-size: .72rem;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    /* ── Meaning area with AI button ── */
+    .meaning-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      min-width: 0;
+    }
+    .meaning {
+      width: 100%;
+      min-height: 78px;
+      resize: vertical;
+      border: 1.5px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      color: var(--ink);
+      background: var(--soft);
+      line-height: 1.75;
+      font-family: var(--font-ko);
+      font-size: .95rem;
+      transition: border-color .2s;
+    }
+    .meaning:focus { outline: none; border-color: var(--periwinkle); background: #fff; }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 18px 28px;
+      border-top: 1.5px solid var(--line);
+      background: rgba(240, 238, 250, .35);
+      min-width: 0;
+    }
+
+    /* ── Upload panel ── */
+    .panel {
+      padding: 22px 26px;
+      display: grid;
+      gap: 16px;
+      margin-top: 16px;
+      min-width: 0;
+    }
+    .upload {
+      border: 1.5px dashed var(--periwinkle);
+      border-radius: var(--radius-sm);
+      padding: 18px;
+      background: rgba(200,195,240,.08);
+      display: grid;
+      gap: 12px;
+      min-width: 0;
+    }
+    .file-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      min-width: 0;
+    }
+    input[type="file"] {
+      max-width: 100%;
+      font-size: .84rem;
+      color: var(--muted);
+    }
+    .paste-box {
+      min-height: 114px;
+      width: 100%;
+      resize: vertical;
+      border: 1.5px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      line-height: 1.7;
+      font-family: var(--font-body);
+      background: #fff;
+      color: var(--ink);
+      transition: border-color .2s;
+    }
+    .paste-box:focus { outline: none; border-color: var(--periwinkle); }
+
+    /* ── Sidebar ── */
+    .side { display: grid; gap: 16px; min-width: 0; }
+    .side-block { padding: 22px; display: grid; gap: 14px; min-width: 0; }
+
+    select, input[type="date"], input[type="number"], input[type="text"] {
+      width: 100%;
+      min-height: 40px;
+      border: 1.5px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--soft);
+      color: var(--ink);
+      padding: 0 14px;
+      font-size: .88rem;
+      transition: border-color .2s;
+    }
+    select:focus, input[type="date"]:focus, input[type="number"]:focus, input[type="text"]:focus {
+      outline: none; border-color: var(--periwinkle); background: #fff;
+    }
+    input[type="range"] { width: 100%; accent-color: var(--accent); }
+
+    /* ── Vocab ── */
+    .vocab-list { display: grid; gap: 10px; }
+    .vocab-card {
+      border: 1.5px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      background: var(--soft);
+      display: grid;
+      gap: 8px;
+      transition: border-color .2s;
+      min-width: 0;
+    }
+    .vocab-card:hover { border-color: var(--periwinkle); }
+    .vocab-card input[type="text"] {
+      font-weight: 500;
+      font-size: .9rem;
+      background: #fff;
+    }
+
+    /* ── Vocab term row ── */
+    .vocab-term-row {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .vocab-term-row input[type="text"] {
+      flex: 1;
+      min-width: 0;
+    }
+    .vocab-speak-btn {
+      flex-shrink: 0;
+      border: 0;
+      border-radius: 999px;
+      width: 34px;
+      height: 34px;
+      min-height: unset;
+      padding: 0;
+      font-size: 1rem;
+      background: var(--lavender);
+      color: var(--accent-deep);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .18s, transform .15s;
+      line-height: 1;
+    }
+    .vocab-speak-btn:hover { background: var(--periwinkle); transform: scale(1.08); }
+    .vocab-speak-btn:active { transform: scale(.95); }
+    .vocab-speak-btn.speaking {
+      background: var(--accent);
+      color: #fff;
+      animation: pulse-ring .8s ease infinite;
+    }
+    @keyframes pulse-ring {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(124,111,196,.4); }
+      50%       { box-shadow: 0 0 0 6px rgba(124,111,196,.0); }
+    }
+
+    /* ── Vocab note with AI ── */
+    .vocab-note-wrap { position: relative; }
+    .vocab-card textarea {
+      width: 100%;
+      min-height: 60px;
+      resize: vertical;
+      border: 1.5px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 12px;
+      padding-right: 64px;
+      line-height: 1.55;
+      font-size: .84rem;
+      font-family: var(--font-ko);
+      background: #fff;
+      color: var(--ink);
+      transition: border-color .2s;
+    }
+    .vocab-card textarea:focus { outline: none; border-color: var(--periwinkle); }
+    .vocab-ai-btn {
+      position: absolute;
+      top: 8px; right: 8px;
+      border: 0;
+      border-radius: 8px;
+      padding: 4px 8px;
+      font-size: .72rem;
+      font-weight: 500;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--sky-deep) 100%);
+      color: #fff;
+      cursor: pointer;
+      min-height: unset;
+      letter-spacing: .02em;
+      transition: opacity .2s;
+    }
+    .vocab-ai-btn:hover { opacity: .85; }
+    .vocab-ai-btn:disabled { opacity: .35; cursor: not-allowed; }
+
+    .small {
+      color: var(--muted);
+      font-size: .8rem;
+      line-height: 1.7;
+      font-family: var(--font-ko);
+    }
+    footer {
+      padding-top: 28px;
+      color: var(--muted);
+      font-size: .76rem;
+      letter-spacing: .08em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    .hidden { display: none !important; }
+
+    /* ── AI loading shimmer ── */
+    @keyframes shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    .ai-loading {
+      background: linear-gradient(90deg, var(--soft) 25%, var(--lavender) 50%, var(--soft) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s ease infinite;
+      color: transparent !important;
+      border-radius: 6px;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      main { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 520px) {
+      .app { padding: 24px 10px 52px; }
+      header { padding-bottom: 34px; }
+      .reader-top {
+        align-items: flex-start;
+        flex-direction: column;
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+      .progress { text-align: left; }
+      .controls { padding-left: 18px; padding-right: 18px; }
+      .sentence-wrap { padding: 28px 18px 24px; }
+      .sentence { font-size: 1.65rem; }
+      .meaning-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+      .meaning-header .ai-btn { width: 100%; justify-content: center; }
+      .file-row { flex-direction: column; align-items: stretch; }
+      input[type="file"] { width: 100%; }
+      .file-row button,
+      .controls button {
+        width: 100%;
+        flex: 1 1 auto;
+      }
+      .panel, .side-block { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="header-text">
+        <h1>하루 한 문장 <span>영어</span></h1>
+        <p class="subtitle">학습하고 싶은 문서의 PDF 나 TXT 를 넣어주세요.<br>시작일 기준으로 매일 한 문장씩 보여줍니다.<br>오늘의 문장을 원어민 발음으로 듣고 학습할 수 있어요.</p>
+      </div>
+      <div class="status-pill" aria-live="polite">
+        <span id="pauseDot" class="dot"></span>
+        <span id="pauseStatus">학습 진행 중</span>
+      </div>
+    </header>
+
+    <main>
+      <div>
+        <section class="reader" aria-labelledby="todayTitle">
+          <div class="reader-top">
+            <h2 id="todayTitle">오늘의 문장</h2>
+            <div id="progressText" class="progress">자료를 불러오세요</div>
+          </div>
+          <div class="sentence-wrap">
+            <div id="sentenceText" class="sentence">PDF 또는 TXT 파일을 추가하면 첫 문장이 여기에 표시됩니다.</div>
+            <div class="field">
+              <div class="meaning-header">
+                <label for="meaningInput">뜻</label>
+                <button id="aiMeaningBtn" class="ai-btn" type="button" disabled>
+                  <span class="ai-sparkle">✦</span> AI 번역
+                </button>
+              </div>
+              <textarea id="meaningInput" class="meaning" placeholder="한국어 뜻을 적어두세요. 저장은 자동으로 됩니다."></textarea>
+            </div>
+          </div>
+          <div class="controls">
+            <button id="speakBtn" type="button">듣기</button>
+            <button id="stopBtn" class="secondary" type="button">정지</button>
+            <button id="prevBtn" class="ghost" type="button">이전</button>
+            <button id="nextBtn" class="ghost" type="button">다음</button>
+            <button id="pauseBtn" class="secondary" type="button">잠시멈춤</button>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="uploadTitle">
+          <h2 id="uploadTitle">자료 넣기</h2>
+          <div class="upload">
+            <div class="file-row">
+              <input id="fileInput" type="file" accept=".txt,.pdf,text/plain,application/pdf">
+              <button id="loadFileBtn" type="button">파일 불러오기</button>
+            </div>
+            <textarea id="pasteInput" class="paste-box" placeholder="파일 대신 영어 문장을 바로 붙여넣어도 됩니다."></textarea>
+            <div class="file-row">
+              <button id="loadTextBtn" type="button">붙여넣은 글 사용</button>
+              <button id="sampleBtn" class="secondary" type="button">샘플 넣기</button>
+              <button id="resetBtn" class="warn" type="button">초기화</button>
+            </div>
+            <div id="loadStatus" class="small">PDF 파일은 인터넷 연결이 있을 때 브라우저 안에서 텍스트를 추출합니다.</div>
+          </div>
+        </section>
+      </div>
+
+      <aside class="side">
+        <section class="side-block" aria-labelledby="ttsTitle">
+          <h2 id="ttsTitle">음성 듣기</h2>
+          <div class="field">
+            <label for="voiceSelect">영어 음성</label>
+            <select id="voiceSelect"></select>
+          </div>
+          <div class="field">
+            <label for="rateInput">속도 <span id="rateValue">0.9</span></label>
+            <input id="rateInput" type="range" min="0.6" max="1.2" step="0.05" value="0.9">
+          </div>
+          <div class="field">
+            <label for="startDateInput">학습 시작일</label>
+            <input id="startDateInput" type="date">
+          </div>
+          <div class="small">브라우저와 OS에 설치된 영어 음성을 사용합니다. Chrome이나 Edge에서는 보통 Microsoft, Google 계열 영어 음성이 표시됩니다.</div>
+        </section>
+
+        <section class="side-block" aria-labelledby="vocabTitle">
+          <h2 id="vocabTitle">주요 단어 및 숙어</h2>
+          <div id="vocabList" class="vocab-list"></div>
+          <button id="addVocabBtn" class="secondary" type="button">단어 추가</button>
+          <div class="small">자동 후보는 현재 문장에서 긴 단어와 자주 쓰이는 표현을 뽑습니다. ✦ 버튼으로 AI 뜻·예문을 자동 생성할 수 있어요.</div>
+        </section>
+      </aside>
+    </main>
+    <footer>Project by OneMind</footer>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "dailyEnglishReader.v1";
+    const PDF_JS_URL = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs";
+    const PDF_WORKER_URL = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs";
+    let pdfModulePromise = null;
+
+    const els = {
+      fileInput: document.querySelector("#fileInput"),
+      loadFileBtn: document.querySelector("#loadFileBtn"),
+      pasteInput: document.querySelector("#pasteInput"),
+      loadTextBtn: document.querySelector("#loadTextBtn"),
+      sampleBtn: document.querySelector("#sampleBtn"),
+      resetBtn: document.querySelector("#resetBtn"),
+      loadStatus: document.querySelector("#loadStatus"),
+      sentenceText: document.querySelector("#sentenceText"),
+      meaningInput: document.querySelector("#meaningInput"),
+      progressText: document.querySelector("#progressText"),
+      speakBtn: document.querySelector("#speakBtn"),
+      stopBtn: document.querySelector("#stopBtn"),
+      prevBtn: document.querySelector("#prevBtn"),
+      nextBtn: document.querySelector("#nextBtn"),
+      pauseBtn: document.querySelector("#pauseBtn"),
+      pauseDot: document.querySelector("#pauseDot"),
+      pauseStatus: document.querySelector("#pauseStatus"),
+      voiceSelect: document.querySelector("#voiceSelect"),
+      rateInput: document.querySelector("#rateInput"),
+      rateValue: document.querySelector("#rateValue"),
+      startDateInput: document.querySelector("#startDateInput"),
+      vocabList: document.querySelector("#vocabList"),
+      addVocabBtn: document.querySelector("#addVocabBtn"),
+      aiMeaningBtn: document.querySelector("#aiMeaningBtn"),
+    };
+
+    const commonWords = new Set("the a an and or but if then than that this these those to of in on at by for with from as is are was were be been being have has had do does did not it its into about over after before between through during without within can could should would may might will just so very more most some any each every their there here your our his her they them you we i he she".split(" "));
+    const phrasePatterns = [
+      "as a result", "in order to", "on the other hand", "at the same time", "for example",
+      "according to", "rather than", "even though", "as long as", "in spite of", "due to",
+      "look forward to", "take advantage of", "make sure", "come up with", "deal with"
+    ];
+
+    let state = loadState();
+    let voices = [];
+
+    function defaultState() {
+      const today = new Date().toISOString().slice(0, 10);
+      return {
+        title: "",
+        sourceText: "",
+        sentences: [],
+        startDate: today,
+        manualIndex: null,
+        paused: false,
+        pausedIndex: 0,
+        meanings: {},
+        vocab: {},
+        voiceURI: "",
+        rate: 0.9
+      };
+    }
+
+    function loadState() {
+      try {
+        return { ...defaultState(), ...JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}") };
+      } catch {
+        return defaultState();
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function daysBetween(startDate) {
+      const start = new Date(`${startDate}T00:00:00`);
+      const now = new Date();
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      return Math.max(0, Math.floor((today - start) / 86400000));
+    }
+
+    function currentIndex() {
+      if (!state.sentences.length) return 0;
+      if (state.manualIndex !== null) return clamp(state.manualIndex, 0, state.sentences.length - 1);
+      if (state.paused) return clamp(state.pausedIndex, 0, state.sentences.length - 1);
+      return clamp(daysBetween(state.startDate), 0, state.sentences.length - 1);
+    }
+
+    function clamp(value, min, max) {
+      return Math.min(Math.max(value, min), max);
+    }
+
+    function splitIntoSentences(text) {
+      const cleaned = text
+        .replace(/\r/g, "\n")
+        .replace(/-\n/g, "")
+        .replace(/\n+/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+      if (!cleaned) return [];
+      const matches = cleaned.match(/[^.!?]+(?:[.!?]+["')\]]*|$)/g) || [];
+      return matches
+        .map(sentence => sentence.trim())
+        .filter(sentence => sentence.length > 8 && /[a-zA-Z]/.test(sentence));
+    }
+
+    async function readTxtFile(file) { return file.text(); }
+
+    async function readPdfFile(file) {
+      const pdfjsLib = await loadPdfJs();
+      const bytes = await file.arrayBuffer();
+      const pdf = await pdfjsLib.getDocument({ data: bytes }).promise;
+      const pages = [];
+      for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber += 1) {
+        const page = await pdf.getPage(pageNumber);
+        const content = await page.getTextContent();
+        pages.push(content.items.map(item => item.str).join(" "));
+      }
+      return pages.join("\n");
+    }
+
+    async function loadPdfJs() {
+      try {
+        if (!pdfModulePromise) pdfModulePromise = import(PDF_JS_URL);
+        const pdfjsLib = await pdfModulePromise;
+        pdfjsLib.GlobalWorkerOptions.workerSrc = PDF_WORKER_URL;
+        return pdfjsLib;
+      } catch {
+        throw new Error("PDF 기능을 불러오지 못했습니다. 인터넷 연결을 확인하거나 TXT로 변환해 넣어주세요.");
+      }
+    }
+
+    /* ── AI helpers ── */
+    async function callClaude(userPrompt) {
+      const res = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-20250514",
+          max_tokens: 1000,
+          messages: [{ role: "user", content: userPrompt }]
+        })
+      });
+      if (!res.ok) throw new Error("API 요청 실패");
+      const data = await res.json();
+      return data.content.filter(b => b.type === "text").map(b => b.text).join("");
+    }
+
+    async function aiTranslateSentence() {
+      const sentence = state.sentences[currentIndex()];
+      if (!sentence) return;
+      els.aiMeaningBtn.classList.add("loading");
+      els.aiMeaningBtn.disabled = true;
+      els.meaningInput.classList.add("ai-loading");
+      els.meaningInput.value = "";
+      try {
+        const result = await callClaude(
+          `다음 영어 문장을 자연스러운 한국어로 번역해줘. 번역문만 출력하고 다른 설명은 넣지 마.\n\n"${sentence}"`
+        );
+        els.meaningInput.value = result.trim();
+        state.meanings[currentIndex()] = els.meaningInput.value;
+        saveState();
+      } catch {
+        els.meaningInput.value = "번역 중 오류가 발생했습니다. 다시 시도해주세요.";
+      } finally {
+        els.meaningInput.classList.remove("ai-loading");
+        els.aiMeaningBtn.classList.remove("loading");
+        els.aiMeaningBtn.disabled = false;
+      }
+    }
+
+    async function aiVocabNote(sentence, term, textarea, btn) {
+      btn.disabled = true;
+      textarea.classList.add("ai-loading");
+      textarea.value = "";
+      try {
+        const result = await callClaude(
+          `영어 학습 앱용 단어 카드를 만들어줘. 아래 문장에서 쓰인 단어/표현의 한국어 뜻과 짧은 영어 예문 1개를 작성해.
+형식은 정확히 이렇게만 출력해 (다른 말 없이):
+뜻: [한국어 뜻]
+예문: [영어 예문]
+
+문장: "${sentence}"
+단어/표현: "${term}"`
+        );
+        textarea.value = result.trim();
+      } catch {
+        textarea.value = "오류가 발생했습니다.";
+      } finally {
+        textarea.classList.remove("ai-loading");
+        btn.disabled = false;
+      }
+    }
+
+    /* ── Core ── */
+    function setSource(text, title = "직접 입력") {
+      const sentences = splitIntoSentences(text);
+      if (!sentences.length) {
+        els.loadStatus.textContent = "문장을 찾지 못했습니다. 영어 본문이 들어 있는지 확인해주세요.";
+        return;
+      }
+      state = {
+        ...state, title, sourceText: text, sentences,
+        startDate: els.startDateInput.value || new Date().toISOString().slice(0, 10),
+        manualIndex: null, paused: false, pausedIndex: 0, meanings: {}, vocab: {}
+      };
+      saveState();
+      els.loadStatus.textContent = `${sentences.length.toLocaleString()}개 문장을 불러왔습니다.`;
+      render();
+    }
+
+    function render() {
+      const hasSentences = state.sentences.length > 0;
+      const index = currentIndex();
+      const sentence = hasSentences ? state.sentences[index] : "PDF 또는 TXT 파일을 추가하면 첫 문장이 여기에 표시됩니다.";
+
+      els.sentenceText.textContent = sentence;
+      els.meaningInput.value = state.meanings[index] || "";
+      els.progressText.textContent = hasSentences
+        ? `${index + 1} / ${state.sentences.length} · ${state.title || "학습 자료"}`
+        : "자료를 불러오세요";
+
+      els.pauseDot.classList.toggle("paused", state.paused);
+      els.pauseStatus.textContent = state.paused ? "학습 잠시멈춤" : "학습 진행 중";
+      els.pauseBtn.textContent = state.paused ? "다시 시작" : "잠시멈춤";
+      els.startDateInput.value = state.startDate;
+      els.rateInput.value = state.rate;
+      els.rateValue.textContent = Number(state.rate).toFixed(2).replace(/0$/, "");
+
+      els.speakBtn.disabled = !hasSentences;
+      els.stopBtn.disabled = !hasSentences;
+      els.prevBtn.disabled = !hasSentences || index === 0;
+      els.nextBtn.disabled = !hasSentences || index === state.sentences.length - 1;
+      els.pauseBtn.disabled = !hasSentences;
+      els.meaningInput.disabled = !hasSentences;
+      els.addVocabBtn.disabled = !hasSentences;
+      els.aiMeaningBtn.disabled = !hasSentences;
+
+      renderVocab(index, sentence, hasSentences);
+      saveState();
+    }
+
+    function renderVocab(index, sentence, hasSentences) {
+      els.vocabList.innerHTML = "";
+      if (!hasSentences) {
+        els.vocabList.innerHTML = `<div class="small">자료를 넣으면 오늘 문장의 단어 후보가 표시됩니다.</div>`;
+        return;
+      }
+      const saved = state.vocab[index] || [];
+      const savedTerms = new Set(saved.map(item => item.term.toLowerCase()));
+      const suggestions = suggestVocab(sentence)
+        .filter(term => !savedTerms.has(term.toLowerCase()))
+        .slice(0, Math.max(0, 5 - saved.length))
+        .map(term => ({ term, note: "" }));
+      const items = [...saved, ...suggestions].slice(0, 8);
+
+      if (!state.vocab[index]) state.vocab[index] = items;
+      if (!items.length) {
+        els.vocabList.innerHTML = `<div class="small">자동으로 뽑을 단어가 적습니다. 직접 추가해보세요.</div>`;
+        return;
+      }
+
+      items.forEach((item, itemIndex) => {
+        const card = document.createElement("div");
+        card.className = "vocab-card";
+        card.innerHTML = `
+          <div class="vocab-term-row">
+            <input type="text" value="${escapeAttr(item.term)}" aria-label="단어 또는 숙어">
+            <button class="vocab-speak-btn" type="button" title="발음 듣기">🔊</button>
+          </div>
+          <div class="vocab-note-wrap">
+            <textarea aria-label="뜻과 예시문장" placeholder="뜻 / 예시문장을 적어두세요.">${escapeHtml(item.note || "")}</textarea>
+            <button class="vocab-ai-btn" type="button" title="AI 뜻·예문 생성">✦</button>
+          </div>
+        `;
+        const termInput = card.querySelector("input");
+        const noteInput = card.querySelector("textarea");
+        const aiBtn = card.querySelector(".vocab-ai-btn");
+        const speakBtn = card.querySelector(".vocab-speak-btn");
+
+        termInput.addEventListener("input", () => updateVocab(index, itemIndex, termInput.value, noteInput.value));
+        noteInput.addEventListener("input", () => updateVocab(index, itemIndex, termInput.value, noteInput.value));
+        aiBtn.addEventListener("click", async () => {
+          const term = termInput.value.trim();
+          if (!term) return;
+          await aiVocabNote(sentence, term, noteInput, aiBtn);
+          updateVocab(index, itemIndex, termInput.value, noteInput.value);
+        });
+        speakBtn.addEventListener("click", () => {
+          const term = termInput.value.trim();
+          if (!term || !("speechSynthesis" in window)) return;
+          window.speechSynthesis.cancel();
+          const utt = new SpeechSynthesisUtterance(term);
+          utt.lang = "en-US";
+          utt.rate = Math.min(Number(state.rate) || 0.9, 0.85);
+          const voice = getEnglishVoice();
+          if (voice) utt.voice = voice;
+          speakBtn.classList.add("speaking");
+          utt.onend = utt.onerror = () => speakBtn.classList.remove("speaking");
+          window.speechSynthesis.speak(utt);
+        });
+
+        els.vocabList.appendChild(card);
+      });
+    }
+
+    function updateVocab(sentenceIndex, itemIndex, term, note) {
+      const list = state.vocab[sentenceIndex] || [];
+      list[itemIndex] = { term, note };
+      state.vocab[sentenceIndex] = list;
+      saveState();
+    }
+
+    function suggestVocab(sentence) {
+      const lower = sentence.toLowerCase();
+      const phrases = phrasePatterns.filter(phrase => lower.includes(phrase));
+      const words = [...sentence.matchAll(/[A-Za-z][A-Za-z'-]{4,}/g)]
+        .map(match => match[0].replace(/^'+|'+$/g, ""))
+        .filter(word => !commonWords.has(word.toLowerCase()))
+        .sort((a, b) => b.length - a.length);
+      return [...new Set([...phrases, ...words])].slice(0, 8);
+    }
+
+    function getEnglishVoice() {
+      // 1순위: 사용자가 선택한 음성
+      const picked = voices.find(v => v.voiceURI === state.voiceURI);
+      if (picked) return picked;
+      // 2순위: 시스템에서 영어 음성 직접 조회
+      const all = window.speechSynthesis.getVoices()
+        .filter(v => /^en([-_]|$)/i.test(v.lang));
+      return all.find(v => v.localService) || all[0] || null;
+    }
+
+    function speakCurrent() {
+      const sentence = state.sentences[currentIndex()];
+      if (!sentence || !("speechSynthesis" in window)) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(sentence);
+      utterance.lang = "en-US";
+      utterance.rate = Number(state.rate) || 0.9;
+      const voice = getEnglishVoice();
+      if (voice) utterance.voice = voice;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function loadVoices() {
+      if (!("speechSynthesis" in window)) {
+        els.voiceSelect.innerHTML = `<option>TTS 미지원 브라우저</option>`;
+        return;
+      }
+      voices = window.speechSynthesis.getVoices()
+        .filter(voice => /^en([-_]|$)/i.test(voice.lang))
+        .sort((a, b) => Number(b.localService) - Number(a.localService) || a.name.localeCompare(b.name));
+      els.voiceSelect.innerHTML = "";
+      voices.forEach(voice => {
+        const option = document.createElement("option");
+        option.value = voice.voiceURI;
+        option.textContent = `${voice.name} (${voice.lang})`;
+        els.voiceSelect.appendChild(option);
+      });
+      if (!state.voiceURI && voices.length) state.voiceURI = voices[0].voiceURI;
+      els.voiceSelect.value = state.voiceURI;
+      saveState();
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, char => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      })[char]);
+    }
+
+    function escapeAttr(value) {
+      return escapeHtml(value).replace(/`/g, "&#96;");
+    }
+
+    /* ── Event listeners ── */
+    els.aiMeaningBtn.addEventListener("click", aiTranslateSentence);
+
+    els.loadFileBtn.addEventListener("click", async () => {
+      const file = els.fileInput.files?.[0];
+      if (!file) { els.loadStatus.textContent = "먼저 PDF 또는 TXT 파일을 선택해주세요."; return; }
+      els.loadFileBtn.disabled = true;
+      els.loadStatus.textContent = "파일을 읽는 중입니다.";
+      try {
+        const text = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf")
+          ? await readPdfFile(file)
+          : await readTxtFile(file);
+        setSource(text, file.name);
+      } catch (error) {
+        els.loadStatus.textContent = error.message || "파일을 읽지 못했습니다.";
+      } finally {
+        els.loadFileBtn.disabled = false;
+      }
+    });
+
+    els.loadTextBtn.addEventListener("click", () => { setSource(els.pasteInput.value, "붙여넣은 글"); });
+
+    els.sampleBtn.addEventListener("click", () => {
+      els.pasteInput.value = `Learning a language is not about memorizing every word at once. It is about meeting useful sentences again and again until they become familiar. When you listen carefully, you begin to notice rhythm, stress, and small expressions that native speakers use naturally. As a result, one clear sentence a day can become a strong habit over time.`;
+      setSource(els.pasteInput.value, "샘플 문장");
+    });
+
+    els.resetBtn.addEventListener("click", () => {
+      if (!confirm("저장된 학습 자료와 메모를 모두 지울까요?")) return;
+      window.speechSynthesis?.cancel?.();
+      state = defaultState();
+      localStorage.removeItem(STORAGE_KEY);
+      els.pasteInput.value = "";
+      els.fileInput.value = "";
+      els.loadStatus.textContent = "초기화했습니다.";
+      render();
+    });
+
+    els.speakBtn.addEventListener("click", speakCurrent);
+    els.stopBtn.addEventListener("click", () => window.speechSynthesis?.cancel?.());
+
+    els.prevBtn.addEventListener("click", () => {
+      state.manualIndex = clamp(currentIndex() - 1, 0, state.sentences.length - 1);
+      if (state.paused) state.pausedIndex = state.manualIndex;
+      render();
+    });
+
+    els.nextBtn.addEventListener("click", () => {
+      state.manualIndex = clamp(currentIndex() + 1, 0, state.sentences.length - 1);
+      if (state.paused) state.pausedIndex = state.manualIndex;
+      render();
+    });
+
+    els.pauseBtn.addEventListener("click", () => {
+      if (!state.paused) {
+        state.paused = true;
+        state.pausedIndex = currentIndex();
+      } else {
+        state.paused = false;
+        state.manualIndex = null;
+        state.startDate = new Date(Date.now() - state.pausedIndex * 86400000).toISOString().slice(0, 10);
+      }
+      render();
+    });
+
+    els.meaningInput.addEventListener("input", () => {
+      state.meanings[currentIndex()] = els.meaningInput.value;
+      saveState();
+    });
+
+    els.voiceSelect.addEventListener("change", () => {
+      state.voiceURI = els.voiceSelect.value;
+      saveState();
+    });
+
+    els.rateInput.addEventListener("input", () => {
+      state.rate = Number(els.rateInput.value);
+      render();
+    });
+
+    els.startDateInput.addEventListener("change", () => {
+      state.startDate = els.startDateInput.value || new Date().toISOString().slice(0, 10);
+      state.manualIndex = null;
+      if (state.paused) state.pausedIndex = currentIndex();
+      render();
+    });
+
+    els.addVocabBtn.addEventListener("click", () => {
+      const index = currentIndex();
+      const list = state.vocab[index] || [];
+      list.push({ term: "", note: "" });
+      state.vocab[index] = list;
+      render();
+      const cards = els.vocabList.querySelectorAll(".vocab-card input");
+      cards[cards.length - 1]?.focus();
+    });
+
+    if (window.speechSynthesis) {
+      if (typeof window.speechSynthesis.addEventListener === "function") {
+        window.speechSynthesis.addEventListener("voiceschanged", loadVoices);
+      } else {
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+      }
+    }
+    loadVoices();
+    render();
+  </script>
+</body>
+</html>

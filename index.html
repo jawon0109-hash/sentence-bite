@@ -400,26 +400,76 @@
       flex-shrink: 0;
       border: 0;
       border-radius: 999px;
-      width: 34px;
-      height: 34px;
+      width: 38px;
+      height: 38px;
       min-height: unset;
       padding: 0;
-      font-size: 1rem;
-      background: var(--lavender);
-      color: var(--accent-deep);
+      background: var(--accent);
+      color: #fff;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: background .18s, transform .15s;
       line-height: 1;
+      box-shadow: 0 4px 14px rgba(124, 111, 196, .24);
+      position: relative;
     }
-    .vocab-speak-btn:hover { background: var(--periwinkle); transform: scale(1.08); }
+    .vocab-speak-btn:hover { background: var(--accent-deep); transform: scale(1.08); }
     .vocab-speak-btn:active { transform: scale(.95); }
     .vocab-speak-btn.speaking {
       background: var(--accent);
       color: #fff;
       animation: pulse-ring .8s ease infinite;
+    }
+    .speaker-icon {
+      position: relative;
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+    }
+    .speaker-box {
+      position: absolute;
+      left: 2px;
+      top: 7px;
+      width: 6px;
+      height: 7px;
+      border-radius: 2px;
+      background: #fff;
+    }
+    .speaker-cone {
+      position: absolute;
+      left: 7px;
+      top: 4px;
+      width: 0;
+      height: 0;
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+      border-right: 8px solid #fff;
+      transform: rotate(180deg);
+    }
+    .speaker-wave,
+    .speaker-wave::after {
+      position: absolute;
+      border: 2px solid #bce3ff;
+      border-left: 0;
+      border-top-color: transparent;
+      border-bottom-color: transparent;
+      border-radius: 0 999px 999px 0;
+      content: "";
+    }
+    .speaker-wave {
+      left: 13px;
+      top: 5px;
+      width: 6px;
+      height: 10px;
+    }
+    .speaker-wave::after {
+      left: 4px;
+      top: -4px;
+      width: 6px;
+      height: 14px;
+      opacity: .8;
     }
     @keyframes pulse-ring {
       0%, 100% { box-shadow: 0 0 0 0 rgba(124,111,196,.4); }
@@ -467,6 +517,17 @@
       font-size: .8rem;
       line-height: 1.7;
       font-family: var(--font-ko);
+    }
+    .vocab-help {
+      max-width: 100%;
+      margin: 0 auto;
+      text-align: left;
+      font-size: .76rem;
+      word-break: keep-all;
+    }
+    .vocab-help span {
+      display: block;
+      white-space: nowrap;
     }
     footer {
       padding-top: 28px;
@@ -605,7 +666,10 @@
           <h2 id="vocabTitle">주요 단어 및 숙어</h2>
           <div id="vocabList" class="vocab-list"></div>
           <button id="addVocabBtn" class="secondary" type="button">단어 추가</button>
-          <div class="small">자동 후보는 현재 문장에서 긴 단어와 자주 쓰이는 표현을 뽑습니다. ✦ 버튼으로 AI 뜻·예문을 자동 생성할 수 있어요.</div>
+          <div class="small vocab-help">
+            <span>현재 문장에서 자주 쓰이는 단어와 표현을 뽑습니다.</span>
+            <span>✦ 버튼으로 AI 뜻·예문을 자동 생성할 수 있어요.</span>
+          </div>
         </section>
       </aside>
     </main>
@@ -878,7 +942,13 @@
         card.innerHTML = `
           <div class="vocab-term-row">
             <input type="text" value="${escapeAttr(item.term)}" aria-label="단어 또는 숙어">
-            <button class="vocab-speak-btn" type="button" title="발음 듣기">🔊</button>
+            <button class="vocab-speak-btn" type="button" title="발음 듣기" aria-label="발음 듣기">
+              <span class="speaker-icon" aria-hidden="true">
+                <span class="speaker-box"></span>
+                <span class="speaker-cone"></span>
+                <span class="speaker-wave"></span>
+              </span>
+            </button>
           </div>
           <div class="vocab-note-wrap">
             <textarea aria-label="뜻과 예시문장" placeholder="뜻 / 예시문장을 적어두세요.">${escapeHtml(item.note || "")}</textarea>
